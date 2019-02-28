@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <permission name="android.permission.WRITE_CONTACTS">
+        <description>写联系人通讯录数据</description>
+    </permission>
+    <permission name="android.permission.GET_ACCOUNTS">
+        <description>访问账户Gmail列表</description>
+    </permission>
+    <permission name="android.permission.READ_CONTACTS">
+        <description>允许应用访问联系人通讯录信息</description>
+    </permission>
+    <permission name="android.permission.READ_PHONE_STATE">
+        <description>读取手机状态</description>
+    </permission>
+    <permission name="android.permission.CALL_PHONE">
+        <description>允许初始化一个电话拨号不需通过用户确认</description>
+    </permission>
+    <permission name="android.permission.USE_SIP">
+        <description>允许使用SIP视频服务</description>
+    </permission>
+    <permission name="android.permission.PROCESS_OUTGOING_CALLS">
+        <description>允许监视、修改有关拨出电话</description>
+    </permission>
+    <permission name="android.permission.CAMERA">
+        <description>允许访问摄像头进行拍照</description>
+    </permission>
+    <permission name="android.permission.WRITE_EXTERNAL_STORAGE">
+        <description>允许程序写入外部存储（如SD卡等）</description>
+    </permission>
+    <permission name="android.permission.RECORD_AUDIO">
+        <description>允许程序录制音频</description>
+    </permission>
+    <permission name="android.permission.READ_SMS">
+        <description>允许程序读取短信息</description>
+    </permission>
+    <permission name="android.permission.RECEIVE_WAP_PUSH">
+        <description>接收WAP PUSH信息</description>
+    </permission>
+    <permission name="android.permission.RECEIVE_MMS">
+        <description>接收彩信</description>
+    </permission>
+    <permission name="android.permission.RECEIVE_SMS">
+        <description>允许程序监控收到的短信</description>
+    </permission>
+    <permission name="android.permission.SEND_SMS">
+        <description>允许程序发送SMS短信</description>
+    </permission>
+
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">detectionApp</string>
+    <string name="iworker_tab_home">进程列表</string>
+    <string name="iworker_tab_address">系统消息</string>
+</resources>
