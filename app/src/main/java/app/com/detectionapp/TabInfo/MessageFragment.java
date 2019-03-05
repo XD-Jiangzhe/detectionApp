@@ -2,7 +2,6 @@ package app.com.detectionapp.TabInfo;
 
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -13,37 +12,27 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import app.com.detectionapp.DumpHeapService.MultiTheadPoolService;
-import app.com.detectionapp.DumpHeapService.SendMessgeService.ProgramInfo;
-import app.com.detectionapp.DumpHeapService.SendMessgeService.onReceiveMsgListener;
+import app.com.detectionapp.BackgroundService.MultiTheadPoolService;
+import app.com.detectionapp.BackgroundService.SendMessgeService.ProgramInfo;
+import app.com.detectionapp.BackgroundService.SendMessgeService.onReceiveMsgListener;
 import app.com.detectionapp.PrommeInfo.MalwareProgrammeInfoAdapter;
 import app.com.detectionapp.PrommeInfo.ProgramDetailedInfo;
 import app.com.detectionapp.PrommeInfo.Programme;
-import app.com.detectionapp.PrommeInfo.ProgrammeAdapter;
 import app.com.detectionapp.PrommeInfo.RemoveRecycleView.ItemRemoveRecyclerView;
 import app.com.detectionapp.PrommeInfo.RemoveRecycleView.OnItemClickListener;
 import app.com.detectionapp.PrommeInfo.dealMsgFromServer.XML2ProgramDetailedInfoAdapter;
-import app.com.detectionapp.PrommeInfo.dealMsgFromServer.decodeXML2MessageListFactory;
-import app.com.detectionapp.PrommeInfo.dealMsgFromServer.dumpMsgListToLocalFactory;
-import app.com.detectionapp.PrommeInfo.dealMsgFromServer.messageLocal;
 import app.com.detectionapp.PrommeInfo.dealMsgFromServer.programDetailedInfos2MsgAdapter;
 import app.com.detectionapp.R;
 
@@ -60,6 +49,8 @@ public class MessageFragment extends Fragment implements  Updateable{
     private ArrayList<Programme> _programmes = new ArrayList<>();
     private MalwareProgrammeInfoAdapter _adapter;
 
+
+    private boolean hasBeenFreshing = false;
 
     //2.23 修改，增加 service 的引用
     private MultiTheadPoolService multiTheadPoolService;
@@ -156,7 +147,7 @@ public class MessageFragment extends Fragment implements  Updateable{
             _adapter = new MalwareProgrammeInfoAdapter(getActivity(), _programmes);
         }
 
-        Log.d(TAG, "onCreateView: jiangzhe "+_adapter.hashCode() );
+
         _recyclerView.setAdapter(_adapter);
         _adapter.updateProgramInfoList(tempProgrammes);
 
@@ -195,18 +186,37 @@ public class MessageFragment extends Fragment implements  Updateable{
         super.onDestroy();
     }
 
-    //如果该fragment visible 则 说明该fragment 在最前面，则将该fragment detach 掉，然后重新生成，保证为最新的
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser) {
-//            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-//        }
-//    }
+//    如果该fragment visible 则 说明该fragment 在最前面，则将该fragment detach 掉，然后重新生成，保证为最新的
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            Log.d(TAG, "setUserVisibleHint: jiangzhe is visible to User");
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        //3.4 添加 来检测如果放到后台，服务器发送消息，导致前台无法直接显示的问题
+        try {
+            MessageFragment currentFragment = (MessageFragment)getFragmentManager().getFragments().get(1);
+            ArrayList<Programme> tempProgrammes = new ArrayList<>(XML2ProgramDetailedInfoAdapter.XML2ProgramList(getActivity(), "message.xml"));
+            if(currentFragment._programmes.size() != tempProgrammes.size())
+            {
+                getFragmentManager().beginTransaction().detach(currentFragment).attach(currentFragment).commit();
+                Log.d(TAG, "onResume: jiangzhe has update the messageFragment");
+            }
+        } catch (IllegalStateException e) {
+            Log.d(TAG, "run: jiangzhe " + e.getMessage());
+        }
+
+       super.onResume();
+    }
 
     /*
-        用来做测试用，无他用
-     */
+            用来做测试用，无他用
+         */
     private void test_RecycleView()
     {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");

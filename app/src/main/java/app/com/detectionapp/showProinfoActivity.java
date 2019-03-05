@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
-import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
 
-import app.com.detectionapp.DumpHeapService.MultiTheadPoolService;
+import app.com.detectionapp.BackgroundService.MultiTheadPoolService;
 import app.com.detectionapp.PrommeInfo.*;
 import app.com.detectionapp.Utils.AppUtils;
 

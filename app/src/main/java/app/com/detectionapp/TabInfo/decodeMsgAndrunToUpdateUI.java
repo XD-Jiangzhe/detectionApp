@@ -3,17 +3,13 @@ package app.com.detectionapp.TabInfo;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import android.support.v4.app.FragmentManager;
 
-import app.com.detectionapp.DumpHeapService.SendMessgeService.ProgramInfo;
+import app.com.detectionapp.BackgroundService.SendMessgeService.ProgramInfo;
 import app.com.detectionapp.PrommeInfo.MalwareProgrammeInfoAdapter;
 import app.com.detectionapp.PrommeInfo.ProgramDetailedInfo;
 import app.com.detectionapp.PrommeInfo.Programme;

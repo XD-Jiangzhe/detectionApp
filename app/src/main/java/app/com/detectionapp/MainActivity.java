@@ -1,22 +1,15 @@
 package app.com.detectionapp;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,11 +21,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.com.detectionapp.DumpHeapService.MultiTheadPoolService;
+import app.com.detectionapp.BackgroundService.MultiTheadPoolService;
 import app.com.detectionapp.PrommeInfo.*;
 import app.com.detectionapp.TabInfo.ContactsFragment;
 import app.com.detectionapp.TabInfo.MessageFragment;
@@ -69,7 +61,10 @@ public class MainActivity extends AppCompatActivity implements NoScrollViewPager
 
         /*申请代码权限*/
         verifyStoragePermissions(this);
+
     }
+
+
 
     //申请额外的存储权限
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -220,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements NoScrollViewPager
     {
         return app.loadLabel(this.getPackageManager()).toString();
     }
+
 
 
 }

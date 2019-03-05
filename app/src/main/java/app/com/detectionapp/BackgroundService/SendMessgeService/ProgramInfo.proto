@@ -1,0 +1,33 @@
+syntax="proto3";
+
+message ReceiveMsg{
+    int32 type =1 ;
+    string channelToken = 2;
+    string AppName= 3;
+    string AppType = 4;
+}
+/*
+从服务器接收的消息格式：
+    type  int 类型
+        1   表示通知服务器分配的hashid
+        2   表示通知检测的结果
+    channelToken ： 服务器端对每个channel 生成一个token 通过第一次连接将token发送给客户端
+    appname app 的名称
+    AppType app 的种类
+*/
+
+message SendMsg{
+    int32 type =1 ;
+    string channelToken = 2;
+    string AppName= 3;
+    string transferTxt = 4;
+}
+
+/*
+    发送到服务器的消息格式；
+        type int类型
+            1   发送要检测的内容，即图的string
+            2   表示内容是perimissionList
+        appName     app的名称
+        transferTxt 通用string ，形式根据type来进行改变
+*/

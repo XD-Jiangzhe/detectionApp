@@ -49,4 +49,6 @@ public class MyFragmentAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
+
+
 }
